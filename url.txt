@@ -1,1 +1,1 @@
-http://192.168.43.221:8088/msg
+http://aqgw.yw.zj.chinamobile.com:8000
